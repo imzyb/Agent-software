@@ -140,115 +140,172 @@ const App: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [mirrorSource, setMirrorSource] = useState<MirrorSource>(MirrorSource.GHPROXY);
-  const [currentRepoId, setCurrentRepoId] = useState<string>(REPO_CONFIG[0].id);
-
-  const currentConfig = useMemo(() => {
-    return REPO_CONFIG.find(c => c.id === currentRepoId) || REPO_CONFIG[0];
-  }, [currentRepoId]);
-
-  useEffect(() => {
-    const loadData = async () => {
-      try {
-        setLoading(true);
-        setReleases([]); // Clear previous data
-        const data = await fetchReleases(currentConfig.owner, currentConfig.repo);
-        setReleases(data);
-        setError(null);
-      } catch (err) {
-        setError('无法获取版本信息，可能是 GitHub API 速率限制。请稍后再试。');
-      } finally {
-        setLoading(false);
+    const [currentRepoId, setCurrentRepoId] = useState<string>(REPO_CONFIG[0].id);
+    const [searchTerm, setSearchTerm] = useState('');
+  const [sortOrder, setSortOrder] = useState('default');
+    const [sortOrder, setSortOrder] = useState('default');
+  
+    const filteredRepos = useMemo(() => {
+      let repos = REPO_CONFIG;
+  
+      if (searchTerm) {
+        repos = repos.filter(repo =>
+          repo.displayName.toLowerCase().includes(searchTerm.toLowerCase())
+        );
       }
-    };
-    loadData();
-  }, [currentConfig]);
-
-  return (
-    <div className="min-h-screen bg-gray-50 text-gray-900 font-sans">
-      {/* Navigation Bar */}
-      <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between h-16 items-center">
-            <div className="flex items-center gap-3">
-              <div className="bg-primary/10 p-2 rounded-lg">
-                 <ServerIcon className="h-6 w-6 text-primary" />
+  
+      if (sortOrder === 'az') {
+        repos = [...repos].sort((a, b) => a.displayName.localeCompare(b.displayName));
+      }
+      
+      return repos;
+    }, [searchTerm, sortOrder]);
+  
+    const groupedRepos = useMemo(() => {
+      return filteredRepos.reduce((acc, repo) => {
+        const platform = repo.platform;
+        if (!acc[platform]) {
+          acc[platform] = [];
+        }
+        acc[platform].push(repo);
+        return acc;
+      }, {} as Record<string, RepoConfig[]>);
+    }, [filteredRepos]);
+  
+    const currentConfig = useMemo(() => {
+      return REPO_CONFIG.find(c => c.id === currentRepoId) || REPO_CONFIG[0];
+    }, [currentRepoId]);
+  
+    useEffect(() => {
+      const loadData = async () => {
+        try {
+          setLoading(true);
+          setReleases([]); // Clear previous data
+          const data = await fetchReleases(currentConfig.owner, currentConfig.repo);
+          setReleases(data);
+          setError(null);
+        } catch (err) {
+          setError('无法获取版本信息，可能是 GitHub API 速率限制。请稍后再试。');
+        } finally {
+          setLoading(false);
+        }
+      };
+      loadData();
+    }, [currentConfig]);
+  
+    return (
+      <div className="min-h-screen bg-gray-50 text-gray-900 font-sans">
+        {/* Navigation Bar */}
+        <nav className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex justify-between h-16 items-center">
+              <div className="flex items-center gap-3">
+                <div className="bg-primary/10 p-2 rounded-lg">
+                   <ServerIcon className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h1 className="text-xl font-bold text-gray-900 leading-none">Agent-Software</h1>
+                  <p className="text-xs text-gray-500 mt-1">GitHub Release Mirror</p>
+                </div>
               </div>
-              <div>
-                <h1 className="text-xl font-bold text-gray-900 leading-none">Agent-Software</h1>
-                <p className="text-xs text-gray-500 mt-1">GitHub Release Mirror</p>
+              
+              <div className="flex items-center gap-4">
+                 <div className="hidden md:flex items-center gap-2 text-sm text-gray-600 bg-gray-100 px-3 py-1.5 rounded-md">
+                    <span className="font-medium">加速节点:</span>
+                    <select 
+                      value={mirrorSource}
+                      onChange={(e) => setMirrorSource(e.target.value as MirrorSource)}
+                      className="bg-transparent border-none focus:ring-0 text-gray-900 font-medium cursor-pointer text-sm outline-none"
+                    >
+                      {Object.values(MirrorSource).map((src) => (
+                        <option key={src} value={src}>{src}</option>
+                      ))}
+                    </select>
+                 </div>
+                 <a href={`https://github.com/${currentConfig.owner}/${currentConfig.repo}`} target="_blank" rel="noreferrer" className="text-gray-400 hover:text-gray-900 transition-colors">
+                    <GitHubIcon className="h-6 w-6" />
+                 </a>
               </div>
-            </div>
-            
-            <div className="flex items-center gap-4">
-               <div className="hidden md:flex items-center gap-2 text-sm text-gray-600 bg-gray-100 px-3 py-1.5 rounded-md">
-                  <span className="font-medium">加速节点:</span>
-                  <select 
-                    value={mirrorSource}
-                    onChange={(e) => setMirrorSource(e.target.value as MirrorSource)}
-                    className="bg-transparent border-none focus:ring-0 text-gray-900 font-medium cursor-pointer text-sm outline-none"
-                  >
-                    {Object.values(MirrorSource).map((src) => (
-                      <option key={src} value={src}>{src}</option>
-                    ))}
-                  </select>
-               </div>
-               <a href={`https://github.com/${currentConfig.owner}/${currentConfig.repo}`} target="_blank" rel="noreferrer" className="text-gray-400 hover:text-gray-900 transition-colors">
-                  <GitHubIcon className="h-6 w-6" />
-               </a>
             </div>
           </div>
+        </nav>
+  
+        {/* Mobile Mirror Selector */}
+        <div className="md:hidden bg-white border-b border-gray-200 px-4 py-3">
+            <div className="flex items-center justify-between">
+               <span className="text-sm font-medium text-gray-600">下载加速线路:</span>
+               <select 
+                  value={mirrorSource}
+                  onChange={(e) => setMirrorSource(e.target.value as MirrorSource)}
+                  className="form-select block pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
+                >
+                  {Object.values(MirrorSource).map((src) => (
+                    <option key={src} value={src}>{src}</option>
+                  ))}
+                </select>
+            </div>
         </div>
-      </nav>
-
-      {/* Mobile Mirror Selector */}
-      <div className="md:hidden bg-white border-b border-gray-200 px-4 py-3">
-          <div className="flex items-center justify-between">
-             <span className="text-sm font-medium text-gray-600">下载加速线路:</span>
-             <select 
-                value={mirrorSource}
-                onChange={(e) => setMirrorSource(e.target.value as MirrorSource)}
-                className="form-select block pl-3 pr-10 py-1 text-base border-gray-300 focus:outline-none focus:ring-primary focus:border-primary sm:text-sm rounded-md"
-              >
-                {Object.values(MirrorSource).map((src) => (
-                  <option key={src} value={src}>{src}</option>
-                ))}
-              </select>
-          </div>
-      </div>
-
-      {/* Main Content */}
-      <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        {/* Header / Intro */}
-        <div className="text-center mb-8">
-           <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl mb-4">
-             获取最新 {currentConfig.displayName}
-           </h2>
-           
-           {/* Platform Switcher */}
-           <div className="flex justify-center mt-6">
-              <div className="bg-white p-2 rounded-xl shadow-sm border border-gray-200 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
-                 {REPO_CONFIG.map((config) => {
-                    const isSelected = config.id === currentRepoId;
-                    const Icon = config.Icon || QuestionMarkIcon;
-                    return (
-                      <button
-                        key={config.id}
-                        onClick={() => setCurrentRepoId(config.id)}
-                        className={`flex items-center justify-center text-center px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
-                          isSelected
-                            ? `${config.colorClass} text-white shadow-md`
-                            : 'text-gray-600 hover:bg-gray-50'
-                        }`}
-                      >
-                        <Icon className={`h-5 w-5 mr-2 ${isSelected ? 'text-white' : 'text-gray-400'}`} />
-                        {config.platform}
-                      </button>
-                    )
-                 })}
+  
+        {/* Main Content */}
+        <main className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          
+          {/* Header / Intro */}
+          <div className="text-center mb-8">
+             <h2 className="text-3xl font-extrabold text-gray-900 sm:text-4xl mb-4">
+               获取最新 {currentConfig.displayName}
+             </h2>
+             
+             {/* Search and Sort Controls */}
+             <div className="max-w-xl mx-auto mt-6 mb-4 flex gap-2">
+                <input
+                  type="text"
+                  placeholder="搜索软件名称..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="flex-grow px-4 py-2 text-gray-900 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                />
+                <select
+                  value={sortOrder}
+                  onChange={(e) => setSortOrder(e.target.value)}
+                  className="px-4 py-2 text-gray-900 bg-white border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                >
+                  <option value="default">默认排序</option>
+                  <option value="az">名称排序 (A-Z)</option>
+                </select>
               </div>
-           </div>
-
+  
+             {/* Platform Switcher */}
+              <div className="mt-6 space-y-8">
+                {Object.keys(groupedRepos).length > 0 ? (
+                  Object.entries(groupedRepos).map(([platform, repos]) => (
+                    <div key={platform} className="bg-white p-4 rounded-xl shadow-sm border border-gray-200">
+                      <h3 className="text-lg font-semibold text-gray-800 mb-3 text-left px-1">{platform}</h3>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2">
+                        {repos.map((config) => {
+                          const isSelected = config.id === currentRepoId;
+                          const Icon = config.Icon || QuestionMarkIcon;
+                          return (
+                            <button
+                              key={config.id}
+                              onClick={() => setCurrentRepoId(config.id)}
+                              className={`flex items-center justify-center text-center px-4 py-2.5 rounded-lg text-sm font-medium transition-all ${
+                                isSelected
+                                  ? `${config.colorClass} text-white shadow-md`
+                                  : 'text-gray-600 hover:bg-gray-50'
+                              }`}
+                            >
+                              <Icon className={`h-5 w-5 mr-2 ${isSelected ? 'text-white' : 'text-gray-400'}`} />
+                              {config.displayName}
+                            </button>
+                          )
+                        })}
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-gray-500 mt-8">未找到匹配的软件。</p>
+                )}
+              </div>
            <p className="max-w-2xl mx-auto text-gray-500 mt-6">
              国内高速下载镜像，同步 GitHub 官方发布。
            </p>
