@@ -7,7 +7,7 @@ const PersonalNotice: React.FC = () => {
       <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100 text-center shadow-sm">
         <h3 className="text-lg font-semibold text-gray-900 mb-2">关于本站</h3>
         <p className="text-gray-600 mb-3">
-          默认反代节点 (654678.xyz) 由个人维护，服务器资源有限，<span className="font-bold text-red-500">请勿滥用</span>。
+          默认反代节点 (654678.xyz) 由个人维护，资源有限，<span className="font-bold text-red-500">请勿滥用</span>。
         </p>
         <p className="text-gray-500 text-sm italic mb-6">
           本人初中生，用爱发电，不喜勿喷 (●'◡'●)
