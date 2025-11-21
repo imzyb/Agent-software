@@ -43,3 +43,28 @@ export const WindowsIcon = ({ className }: { className?: string }) => (
     <path d="M0 3.449L9.889 2.109V11.609H0V3.449ZM9.893 12.493H0V20.555L9.893 19.211V12.493ZM10.982 1.962L24 0.201001V11.611H10.982V1.962ZM10.982 12.492H24V23.802L10.982 22.042V12.492Z"/>
   </svg>
 );
+
+export const AppleIcon = ({ className }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M19.34 14.82a5.37 5.37 0 0 1-2.09-3.24a5.39 5.39 0 0 1 .4-3.3a4.7 4.7 0 0 1 2.37-2.52a5 5 0 0 0-2.4-2.14a4.84 4.84 0 0 0-3.3 1.25a5.32 5.32 0 0 0-2 3.65a4.78 4.78 0 0 0 .52 2.62a4.57 4.57 0 0 0-1.73 2.19a4.87 4.87 0 0 0 .15 3.86a4.82 4.82 0 0 0 2.36 2.52a5.06 5.06 0 0 0 3.32-1.12a5.28 5.28 0 0 0 2.39-4.17M13.82 3.23a2.46 2.46 0 0 1 1.54-.84a2.53 2.53 0 0 1 1.22.43a2.44 2.44 0 0 0-1.57.87a2.52 2.52 0 0 0-1.19-.46Z"/>
+    </svg>
+);
+
+export const QuestionMarkIcon = ({ className }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M10 19v-2h4v2zm2-4a4 4 0 0 0 4-4a4 4 0 0 0-4-4a4 4 0 0 0-4 4h2a2 2 0 0 1 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2v2z"/>
+    </svg>
+);
+
+
+export const AppleIcon = ({ className }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M19.34 14.82a5.37 5.37 0 0 1-2.09-3.24a5.39 5.39 0 0 1 .4-3.3a4.7 4.7 0 0 1 2.37-2.52a5 5 0 0 0-2.4-2.14a4.84 4.84 0 0 0-3.3 1.25a5.32 5.32 0 0 0-2 3.65a4.78 4.78 0 0 0 .52 2.62a4.57 4.57 0 0 0-1.73 2.19a4.87 4.87 0 0 0 .15 3.86a4.82 4.82 0 0 0 2.36 2.52a5.06 5.06 0 0 0 3.32-1.12a5.28 5.28 0 0 0 2.39-4.17M13.82 3.23a2.46 2.46 0 0 1 1.54-.84a2.53 2.53 0 0 1 1.22.43a2.44 2.44 0 0 0-1.57.87a2.52 2.52 0 0 0-1.19-.46Z"/>
+    </svg>
+);
+
+export const QuestionMarkIcon = ({ className }: { className?: string }) => (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path d="M10 19v-2h4v2zm2-4a4 4 0 0 0 4-4a4 4 0 0 0-4-4a4 4 0 0 0-4 4h2a2 2 0 0 1 2-2a2 2 0 0 1 2 2a2 2 0 0 1-2 2v2z"/>
+    </svg>
+);
