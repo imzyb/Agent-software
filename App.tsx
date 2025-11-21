@@ -17,6 +17,7 @@ interface RepoConfig {
 }
 
 const REPO_CONFIG: RepoConfig[] = [
+  // Windows Clients
   {
     id: 'v2rayN',
     displayName: 'v2rayN',
@@ -26,86 +27,6 @@ const REPO_CONFIG: RepoConfig[] = [
     colorClass: 'bg-primary',
     platform: 'Windows (PC)',
     recommendedAssetPattern: /v2rayN-Core\.zip$/i,
-  },
-  {
-    id: 'v2rayNG',
-    displayName: 'v2rayNG',
-    owner: '2dust',
-    repo: 'v2rayNG',
-    Icon: AndroidIcon,
-    colorClass: 'bg-green-500',
-    platform: 'Android (手机)',
-    recommendedAssetPattern: /universal-release\.apk$/i,
-  },
-  {
-    id: 'clash-for-windows',
-    displayName: 'Clash for Windows',
-    owner: 'Fndroid',
-    repo: 'clash_for_windows_pkg',
-    Icon: WindowsIcon,
-    colorClass: 'bg-blue-500',
-    platform: 'Windows (PC)',
-    recommendedAssetPattern: /Clash\.for\.Windows.*\.exe$/i,
-  },
-  {
-    id: 'clashx',
-    displayName: 'ClashX',
-    owner: 'yichengchen',
-    repo: 'clashX',
-    Icon: AppleIcon,
-    colorClass: 'bg-gray-700',
-    platform: 'macOS (电脑)',
-    recommendedAssetPattern: /ClashX\.dmg$/i,
-  },
-  {
-    id: 'clash-verge-rev',
-    displayName: 'Clash Verge Rev',
-    owner: 'clash-verge-rev',
-    repo: 'clash-verge-rev',
-    Icon: QuestionMarkIcon,
-    colorClass: 'bg-purple-500',
-    platform: '多平台',
-    recommendedAssetPattern: /Clash\.Verge_.*\.exe$/i,
-  },
-  {
-    id: 'flyclash-windows',
-    displayName: 'FlyClash (Windows)',
-    owner: 'GtxFury',
-    repo: 'FlyClash',
-    Icon: WindowsIcon,
-    colorClass: 'bg-indigo-500',
-    platform: 'Windows (PC)',
-    recommendedAssetPattern: /FlyClash.*\.exe$/i,
-  },
-  {
-    id: 'flyclash-android',
-    displayName: 'FlyClash (Android)',
-    owner: 'GtxFury',
-    repo: 'FlyClash-Android',
-    Icon: AndroidIcon,
-    colorClass: 'bg-orange-500',
-    platform: 'Android (手机)',
-    recommendedAssetPattern: /FlyClash.*\.apk$/i,
-  },
-  {
-    id: 'flclash',
-    displayName: 'FlClash',
-    owner: 'chen08209',
-    repo: 'FlClash',
-    Icon: WindowsIcon,
-    colorClass: 'bg-pink-500',
-    platform: 'Windows (PC)',
-    recommendedAssetPattern: /FlClash.*\.exe$/i,
-  },
-  {
-    id: 'nekobox-android',
-    displayName: 'NekoBoxForAndroid',
-    owner: 'MatsuriDayo',
-    repo: 'NekoBoxForAndroid',
-    Icon: AndroidIcon,
-    colorClass: 'bg-teal-500',
-    platform: 'Android (手机)',
-    recommendedAssetPattern: /NekoBoxForAndroid.*\.apk$/i,
   },
   {
     id: 'nekoray',
@@ -118,6 +39,68 @@ const REPO_CONFIG: RepoConfig[] = [
     recommendedAssetPattern: /nekoray.*\.zip$/i,
   },
   {
+    id: 'flyclash-windows',
+    displayName: 'FlyClash',
+    owner: 'GtxFury',
+    repo: 'FlyClash',
+    Icon: WindowsIcon,
+    colorClass: 'bg-indigo-500',
+    platform: 'Windows (PC)',
+    recommendedAssetPattern: /FlyClash.*\.exe$/i,
+  },
+  {
+    id: 'flclash',
+    displayName: 'FlClash',
+    owner: 'chen08209',
+    repo: 'FlClash',
+    Icon: WindowsIcon,
+    colorClass: 'bg-pink-500',
+    platform: 'Windows (PC)',
+    recommendedAssetPattern: /FlClash.*\.exe$/i,
+  },
+  {
+    id: 'hiddify-next-windows',
+    displayName: 'Hiddify',
+    owner: 'hiddify',
+    repo: 'Hiddify-Next',
+    Icon: WindowsIcon,
+    colorClass: 'bg-yellow-500',
+    platform: 'Windows (PC)',
+    recommendedAssetPattern: /Hiddify-Next-Setup.*\.exe$/i,
+  },
+
+  // Android Clients
+  {
+    id: 'v2rayNG',
+    displayName: 'v2rayNG',
+    owner: '2dust',
+    repo: 'v2rayNG',
+    Icon: AndroidIcon,
+    colorClass: 'bg-green-500',
+    platform: 'Android (手机)',
+    recommendedAssetPattern: /universal-release\.apk$/i,
+  },
+  {
+    id: 'nekobox-android',
+    displayName: 'NekoBoxForAndroid',
+    owner: 'MatsuriDayo',
+    repo: 'NekoBoxForAndroid',
+    Icon: AndroidIcon,
+    colorClass: 'bg-teal-500',
+    platform: 'Android (手机)',
+    recommendedAssetPattern: /NekoBoxForAndroid.*\.apk$/i,
+  },
+  {
+    id: 'flyclash-android',
+    displayName: 'FlyClash',
+    owner: 'GtxFury',
+    repo: 'FlyClash-Android',
+    Icon: AndroidIcon,
+    colorClass: 'bg-orange-500',
+    platform: 'Android (手机)',
+    recommendedAssetPattern: /FlyClash.*\.apk$/i,
+  },
+  {
     id: 'sing-box-android',
     displayName: 'sing-box',
     owner: 'SagerNet',
@@ -128,18 +111,8 @@ const REPO_CONFIG: RepoConfig[] = [
     recommendedAssetPattern: /SFA.*universal-release\.apk$/i,
   },
   {
-    id: 'hiddify-next-windows',
-    displayName: 'Hiddify (Windows)',
-    owner: 'hiddify',
-    repo: 'Hiddify-Next',
-    Icon: WindowsIcon,
-    colorClass: 'bg-yellow-500',
-    platform: 'Windows (PC)',
-    recommendedAssetPattern: /Hiddify-Next-Setup.*\.exe$/i,
-  },
-  {
     id: 'hiddify-next-android',
-    displayName: 'Hiddify (Android)',
+    displayName: 'Hiddify',
     owner: 'hiddify',
     repo: 'Hiddify-Next',
     Icon: AndroidIcon,
@@ -147,9 +120,11 @@ const REPO_CONFIG: RepoConfig[] = [
     platform: 'Android (手机)',
     recommendedAssetPattern: /Hiddify-Next.*\.apk$/i,
   },
+
+  // macOS Clients
   {
     id: 'hiddify-next-macos',
-    displayName: 'Hiddify (macOS)',
+    displayName: 'Hiddify',
     owner: 'hiddify',
     repo: 'Hiddify-Next',
     Icon: AppleIcon,
@@ -164,7 +139,7 @@ const App: React.FC = () => {
   const [releases, setReleases] = useState<GithubRelease[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [mirrorSource, setMirrorSource] = useState<MirrorSource>(MirrorSource.XYZPROXY);
+  const [mirrorSource, setMirrorSource] = useState<MirrorSource>(MirrorSource.GHPROXY);
   const [currentRepoId, setCurrentRepoId] = useState<string>(REPO_CONFIG[0].id);
 
   const currentConfig = useMemo(() => {
@@ -321,7 +296,7 @@ const App: React.FC = () => {
 
       <footer className="bg-white border-t border-gray-200 py-8 mt-12">
         <div className="max-w-5xl mx-auto px-4 text-center text-gray-400 text-sm">
-          <p className="mt-2">Data provided by GitHub API • Powered by Cloudflare Pages</p>
+          <p className="mt-2">Agent-Software by Google Gemini</p>
         </div>
       </footer>
     </div>

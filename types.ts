@@ -27,14 +27,12 @@ export interface GithubRelease {
 }
 
 export enum MirrorSource {
-  XYZPROXY = "654678.xyz (推荐)",
   GITHUB = "GitHub (官方)",
-  GHPROXY = "GhProxy",
+  GHPROXY = "GhProxy (推荐)",
   KGITHUB = "KGithub",
 }
 
 export const PROXY_MAP: Record<MirrorSource, (url: string) => string> = {
-  [MirrorSource.XYZPROXY]: (url) => `https://github.proxy.654678.xyz/${url}`,
   [MirrorSource.GITHUB]: (url) => url,
   [MirrorSource.GHPROXY]: (url) => `https://mirror.ghproxy.com/${url}`,
   [MirrorSource.KGITHUB]: (url) => url.replace('github.com', 'kkgithub.com'),
